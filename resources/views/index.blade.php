@@ -10,7 +10,7 @@
 @section('content')
   <section class="container-custom pt-60 pb-60">
   	<div class="row">
-  		<div class="col-md-12"><h1>{{ trans('home.title') }}</h1></div>
+  		<div class="col-md-12"><h1>One page</h1></div>
   	</div>
   </section>
 @endsection

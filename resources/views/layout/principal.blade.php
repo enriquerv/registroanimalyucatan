@@ -23,11 +23,11 @@
         @yield('styles')
     </head>
     <body {{ Request::is("login") ? "class=h-100" : "" }}>
-        @include('layout.menus.principal')
+        {{-- @include('layout.menus.principal') --}}
 
         @yield('content')
 
-        @include('layout.menus.footer')
+        {{-- @include('layout.menus.footer') --}}
         {{-- jQuery v3.4.1 --}}
         {{ Html::script('https://code.jquery.com/jquery-3.4.1.min.js') }}
         {{-- jQuery UI v1.12.1 --}}

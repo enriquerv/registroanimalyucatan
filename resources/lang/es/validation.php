@@ -178,7 +178,9 @@ return [
         'time'                                  => 'Hora',
         'subject'                               => 'Asunto',
         'message'                               => 'Mensaje',
-
+        //microchips
+        'microchip'                             => 'Microchip',
+        'active'                                => 'Activo',
         // States
         'country_id'                            => 'País',
         // Cities

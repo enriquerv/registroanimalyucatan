@@ -25,40 +25,12 @@ class UsersTableSeeder extends Seeder
 		]);
 
 		$customerRole = Sentinel::getRoleRepository()->createModel()->create([
-			'slug' => 'customer',
-			'name' => 'Cliente',
+			'slug' => 'veterinary',
+			'name' => 'Veterinario',
 			'permissions' => array('custo' => 2),
 		]);
 
 		$admins = [
-			Sentinel::registerAndActivate([
-				'first_name' 	=> 'Ivan',
-				'last_name' 	=> 'Ramírez',
-				'email' 		=> 'iramirez@fabricadesoluciones.com',
-				'password' 		=> 'asdasd',
-				'role_id' 		=> 1,
-			]),
-			Sentinel::registerAndActivate([
-				'first_name' 	=> 'Jorge',
-				'last_name' 	=> 'Hernández',
-				'email' 		=> 'jhernandez@fabricadesoluciones.com',
-				'password' 		=> 'asdasd',
-				'role_id' 		=> 1,
-			]),
-			Sentinel::registerAndActivate([
-				'first_name' 	=> 'Fernando',
-				'last_name' 	=> 'Resendiz',
-				'email' 		=> 'fresendiz@fabricadesoluciones.com',
-				'password' 		=> 'asdasd',
-				'role_id' 		=> 1,
-			]),
-			Sentinel::registerAndActivate([
-				'first_name' 	=> 'Nevin',
-				'last_name' 	=> 'Santana',
-				'email' 		=> 'nevsantana@fabricadesoluciones.com',
-				'password' 		=> 'asdasd',
-				'role_id' 		=> 1,
-			]),
 			Sentinel::registerAndActivate([
 				'first_name' 	=> 'Enrique',
 				'last_name' 	=> 'Rodriguez',
@@ -66,13 +38,42 @@ class UsersTableSeeder extends Seeder
 				'password' 		=> 'asdasd',
 				'role_id' 		=> 1,
 			]),
-			Sentinel::registerAndActivate([
-				'first_name' 	=> 'Karla',
-				'last_name' 	=> 'Reyes',
-				'email' 		=> 'kreyes@fabricadesoluciones.com',
-				'password' 		=> 'asdasd',
-				'role_id' 		=> 1,
-			]),
+			// Sentinel::registerAndActivate([
+			// 	'first_name' 	=> 'Ivan',
+			// 	'last_name' 	=> 'Ramírez',
+			// 	'email' 		=> 'iramirez@fabricadesoluciones.com',
+			// 	'password' 		=> 'asdasd',
+			// 	'role_id' 		=> 1,
+			// ]),
+			// Sentinel::registerAndActivate([
+			// 	'first_name' 	=> 'Jorge',
+			// 	'last_name' 	=> 'Hernández',
+			// 	'email' 		=> 'jhernandez@fabricadesoluciones.com',
+			// 	'password' 		=> 'asdasd',
+			// 	'role_id' 		=> 1,
+			// ]),
+			// Sentinel::registerAndActivate([
+			// 	'first_name' 	=> 'Fernando',
+			// 	'last_name' 	=> 'Resendiz',
+			// 	'email' 		=> 'fresendiz@fabricadesoluciones.com',
+			// 	'password' 		=> 'asdasd',
+			// 	'role_id' 		=> 1,
+			// ]),
+			// Sentinel::registerAndActivate([
+			// 	'first_name' 	=> 'Nevin',
+			// 	'last_name' 	=> 'Santana',
+			// 	'email' 		=> 'nevsantana@fabricadesoluciones.com',
+			// 	'password' 		=> 'asdasd',
+			// 	'role_id' 		=> 1,
+			// ]),
+			
+			// Sentinel::registerAndActivate([
+			// 	'first_name' 	=> 'Karla',
+			// 	'last_name' 	=> 'Reyes',
+			// 	'email' 		=> 'kreyes@fabricadesoluciones.com',
+			// 	'password' 		=> 'asdasd',
+			// 	'role_id' 		=> 1,
+			// ]),
 		];
 
 		foreach($admins as $admin) {

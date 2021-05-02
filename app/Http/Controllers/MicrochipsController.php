@@ -5,27 +5,24 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 
 use Illuminate\Support\Str as Str;
-use App\Http\Requests\UsersRequest as MasterRequest;
-use App\User as MasterModel;
-use App\ViewUser as MasterViewModel;
+use App\Microchip as MasterModel;
+use App\ViewMicrochip as MasterViewModel;
 use Sentinel;
 use Activation;
 use Redirect;
 use Illuminate\Support\Facades\DB;
 
-class UsersController extends Controller
+class MicrochipsController extends Controller
 {
+    
     public function __construct() {
-        $this->middleware('permissionsUser');
-
-        $this->active = "users";
-        $this->model = "User";
+        $this->active = "microchips";
+        $this->model = "Microchip";
         $this->select = [
             'id',
-            'first_name',
-            'last_name',
-            'email',
-            'role_id',
+            'user_id',
+            'microchip',
+            'active',
             'created_at'
         ];
         // 1 = all
@@ -47,10 +44,9 @@ class UsersController extends Controller
     {
         $columns = [
             trans('validation.attributes.id'),
-            trans('validation.attributes.first_name'),
-            trans('validation.attributes.last_name'),
-            trans('validation.attributes.email'),
-            trans('validation.attributes.role_id'),
+            trans('validation.attributes.user_id'),
+            trans('validation.attributes.microchip'),
+            trans('validation.attributes.active'),
             trans('validation.attributes.created_at'),
             trans('validation.attributes.actions'),
         ];
