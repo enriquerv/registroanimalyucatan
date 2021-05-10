@@ -10,6 +10,9 @@ use App\ViewMicrochip as MasterViewModel;
 use Sentinel;
 use Activation;
 use Redirect;
+  
+use App\User;
+
 use Illuminate\Support\Facades\DB;
 
 class MicrochipsController extends Controller
@@ -22,7 +25,6 @@ class MicrochipsController extends Controller
             'id',
             'user_name',
             'microchip',
-            'active',
             'created_at'
         ];
         // 1 = all
@@ -46,7 +48,6 @@ class MicrochipsController extends Controller
             trans('validation.attributes.id'),
             trans('validation.attributes.user_id'),
             trans('validation.attributes.microchip'),
-            trans('validation.attributes.active'),
             trans('validation.attributes.created_at'),
             trans('validation.attributes.actions'),
         ];
@@ -112,10 +113,9 @@ class MicrochipsController extends Controller
         $columns = $this->columns();
         $select = $this->select;
 
-        $user = Sentinel::getUser();
-        $user_name = $user->first_name." ".$user->last_name;
+        $users = User::all();
 
-        return view('admin.create', compact($this->compact, 'user_name'));
+        return view('admin.create', compact($this->compact, 'users'));
     }
 
     /**
@@ -126,26 +126,18 @@ class MicrochipsController extends Controller
      */
     public function store(Request $request)
     {
-        $user = Sentinel::getUser();   	
-        $message = "Microchip registrado con éxito, se envió la solicitud al administrador para su activación";
-      	
+        // dd($request->all());    	
       	$microchip = MasterModel::where('microchip', $request->microchip);
-
       	if($microchip->count()){
       		return Redirect::back()->with('error', "El microchip que intentas registrar ya existe, favor de corroborarlo");
       	}
-      	else{
-      		$active = 0;
-      		if(!is_null($request->active))
-      			$active = $request->active;
 
-      		$item = MasterModel::create([
-      			'microchip' => $request->microchip,
-      			'user_id' => $user->id,
-      			'active' => $active
-      		]);	
-      	}
-
+    		$item = MasterModel::create([
+    			'microchip' => $request->microchip,
+    			'user_id' => $request->user_id,
+    			'active' => 1
+    		]);	
+        $message = "Microchip registrado con éxito";
         if($item->save()){
             return Redirect::route($this->active)->with('success', $message);
         }else{
@@ -201,10 +193,9 @@ class MicrochipsController extends Controller
         $columns = $this->columns();
         $select = $this->select;
 
-        $user = Sentinel::getUser();
-        $user_name = $user->first_name." ".$user->last_name;
+        $users = User::all();
 
-        return view('admin.edit', compact($this->compact, 'item', 'user_name'));
+        return view('admin.edit', compact($this->compact, 'item', 'users'));
     }
 
     /**
@@ -216,12 +207,17 @@ class MicrochipsController extends Controller
      */
     public function update(Request $request, $id)
     {
-    	$user = Sentinel::getUser(); 
+        // dd($request->all());
+
+        $microchip = MasterModel::where('microchip', $request->microchip);
+        if($microchip->count()){
+          return Redirect::back()->with('error', "El microchip que intentas editar ya existe, favor de corroborarlo");
+        }
+
         $item = MasterModel::find($id);
         $item->fill([
         	'microchip' => $request->microchip,
-        	'user_id' => $user->id,
-        	'active' => $request->active
+        	'user_id' => $request->user_id,
         ]);
         if($item->save()){
             return Redirect::route($this->active)->with('success', trans('module_'.$this->active.'.crud.update.success'));

@@ -25,6 +25,9 @@
         {{-- DateTimePicker CSS file --}}
         {{ Html::style('https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css') }}
 
+        {{-- SelectPicker CSS file --}}
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-select@1.13.14/dist/css/bootstrap-select.min.css">
+
         {{-- TimePicker CSS file --}}
         {{ Html::style('https://cdnjs.cloudflare.com/ajax/libs/timepicker/1.3.5/jquery.timepicker.min.css') }}
 
@@ -81,6 +84,8 @@
         {{-- jQuery --}}
         {{ Html::script("https://code.jquery.com/jquery-3.4.1.min.js") }}
         {{ Html::script('https://code.jquery.com/ui/1.12.1/jquery-ui.js') }}
+        
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js" integrity="sha384-b/U6ypiBEHpOf/4+1nzFpr53nxSS+GLCkfwBdFNTxtclqqenISfwAzpKaMNFNmj4" crossorigin="anonymous"></script>
 
         {{-- Bootstrap Core JavaScript --}}
         {{ Html::script("https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js") }}
@@ -88,12 +93,13 @@
         {{-- Custom Theme JavaScript --}}
         {{ Html::script("assets/js/scripts.js") }}
 
+        
+
         {{ Html::script("https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.min.js") }}
-        {{-- {{ Html::script("assets/demo/chart-area-demo.js") }} --}}
-        {{-- {{ Html::script("assets/demo/chart-bar-demo.js") }} --}}
+
         {{ Html::script("https://cdn.datatables.net/1.10.20/js/jquery.dataTables.min.js") }}
         {{ Html::script("https://cdn.datatables.net/1.10.20/js/dataTables.bootstrap4.min.js") }}
-        {{-- {{ Html::script("assets/demo/datatables-demo.js") }} --}}
+
 
         {{-- Bootstrap Wizard --}}
         {{ Html::script('assets/plugins/bootstrap-wizard/jquery.bootstrap.wizard.min.js') }}
@@ -117,21 +123,19 @@
             {{ Html::script("assets/plugins/datetimepicker/i18n/datepicker-es.js") }}
         @endif
 
+        <!-- Latest compiled and minified JavaScript -->
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap-select@1.13.14/dist/js/bootstrap-select.min.js"></script>
+
         {{-- TimePicker plugin --}}
         {{ Html::script("https://cdnjs.cloudflare.com/ajax/libs/timepicker/1.3.5/jquery.timepicker.min.js") }}
         {{ Html::script("assets/plugins/timepicker/timepicker.call.js") }}
 
-        {{-- CkEditor plugin --}}
-        {{ Html::script("assets/plugins/ckeditor/ckeditor.js") }}
-        {{-- Include CKEditor and jQuery adapter --}}
-        {{ Html::script("assets/plugins/ckeditor/adapters/jquery.js") }}
-
-        {{-- Google Maps --}}
-        {{ Html::script("https://maps.googleapis.com/maps/api/js?key=". env('GOOGLE_MAPS_KEY') ."&libraries=places&callback=initAutocomplete", ['async', 'defer']) }}
-        {{ Html::script("assets/plugins/google-maps/google_maps.js") }}
+    
 
         @yield('scripts')
-
+        <script>
+            $('.selectpicker').selectpicker();
+        </script>
         @include('notifications')
     </body>
 </html>

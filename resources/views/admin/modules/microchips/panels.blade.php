@@ -5,7 +5,18 @@
         <div class="col-md-6">
             <div class="form-group {{ $errors->first('user_id') ? 'has-error' : '' }}">
                 <label for="user_id" class="control-label">Usuario</label>  
-                <input type="text" value="{{ $user_name }}" class="form-control" readonly disabled>
+                <select name="user_id" id="user_id" class="form-control selectpicker" data-live-search="true">
+                    <option selected disabled>Selecciona una opción</option>
+                    @foreach ($users as $user)
+                        @php
+                            $selected = '';
+                            if(isset($item))
+                                if($item->user_id == $user->id)
+                                    $selected = 'selected';
+                        @endphp                        
+                        <option value="{{ $user->id }}" {{ $selected }}>{{ $user->first_name }} {{ $user->last_name }}</option>
+                    @endforeach
+                </select>
                 <span class="help-block">{{ $errors->first('user_id', ':message') }}</span>
             </div>
         </div>
@@ -16,27 +27,5 @@
                 <span class="help-block">{{ $errors->first('microchip', ':message') }}</span>
             </div>
         </div>
-        @if ($user = Sentinel::getUser()->role_id == 1)
-            <div class="col-md-6">
-                <div class="form-group {{ $errors->first('active') ? 'has-error' : '' }}">
-                    <label for="active" class="control-label">Activo</label>  
-                    @php
-                        $selected_1 = '';
-                        $selected_0 = 'selected';
-                        if(isset($item)){
-                            if ($item->active == 1) {
-                                $selected_1 = 'selected';
-                                $selected_0 = '';
-                            }
-                        }
-                    @endphp
-                    <select name="active" class="form-control">
-                        <option value="1" {{ $selected_1 }}>Si</option>
-                        <option value="0" {{ $selected_0 }}>No</option>
-                    </select>
-                    <span class="help-block">{{ $errors->first('active', ':message') }}</span>
-                </div>
-            </div>
-        @endif
     </div>
 </div>
