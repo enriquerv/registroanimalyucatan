@@ -9,34 +9,26 @@
                                 <table class="table table-bordered table-striped">
                                     <tr>
                                         <th>
-                                            {{ trans('validation.attributes.first_name') }}
+                                            {{ trans('validation.attributes.user_id') }}
                                         </th>
                                         <td>
-                                            {{ $item->first_name }}
+                                            {{ $item->user_id }}
                                         </td>
                                     </tr>
                                     <tr>
                                         <th>
-                                            {{ trans('validation.attributes.last_name') }}
+                                            {{ trans('validation.attributes.microchip') }}
                                         </th>
                                         <td>
-                                            {{ $item->last_name }}
+                                            {{ $item->microchip }}
                                         </td>
                                     </tr>
                                     <tr>
                                         <th>
-                                            {{ trans('validation.attributes.email') }}
+                                            {{ trans('validation.attributes.active') }}
                                         </th>
                                         <td>
-                                            {{ $item->email }}
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <th>
-                                            {{ trans('validation.attributes.role_id') }}
-                                        </th>
-                                        <td>
-                                            {{ $item->role_id }}
+                                            {{ $item->active }}
                                         </td>
                                     </tr>
                                 </table>

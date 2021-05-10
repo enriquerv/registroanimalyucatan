@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 
+use Sentinel;
+
 use Carbon\Carbon;
 use Yajra\DataTables\Facades\DataTables;
 
@@ -20,12 +22,20 @@ class DataTablesController extends Controller
         $model = $request->model;
         $view = $request->view;
         $actions_value = $request->actions;
+        $user = Sentinel::getUser();
+
         if($view == 'index'){
             $full_model = 'App\\View'.$request->model;
         }else{
             $full_model = 'App\\ViewDeleted'.$request->model;
         }
-        $rows = $full_model::data();
+
+        if($model == 'Microchip' && $user->role_id == 2){
+           $rows = $full_model::where('user_id', $user->id);
+        }
+        else{
+            $rows = $full_model::data();
+        }
 
         return DataTables::of($rows)
             ->editColumn('created_at', '{!! \Carbon\Carbon::parse($created_at)->diffForHumans() !!}')

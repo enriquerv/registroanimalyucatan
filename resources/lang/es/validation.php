@@ -233,7 +233,7 @@ return [
         'add_contact'                           => 'Agregar Contacto',
         // Customers
         // Products
-        'user_id'                               => 'Proveedor',
+        'user_id'                               => 'Usuario',
         'subcategory_id'                        => 'Subcategoría',
         'description'                           => 'Descripción',
         'price'                                 => 'Precio',

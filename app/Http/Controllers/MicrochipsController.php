@@ -20,7 +20,7 @@ class MicrochipsController extends Controller
         $this->model = "Microchip";
         $this->select = [
             'id',
-            'user_id',
+            'user_name',
             'microchip',
             'active',
             'created_at'
@@ -82,7 +82,11 @@ class MicrochipsController extends Controller
         // 5 = (show)
         // 6 = (edit)
         // 7 = (delete)
-        $actions = 1;
+        $user = Sentinel::getUser();  
+        if($user->role_id == 1)
+        	$actions = 1;
+        else
+        	$actions = 5;	
 
         return view('admin.index', compact($this->compact));
     }
@@ -108,10 +112,10 @@ class MicrochipsController extends Controller
         $columns = $this->columns();
         $select = $this->select;
 
-        // Catalogs
-        $catalog_role_id = $this->catalog_role_id;
+        $user = Sentinel::getUser();
+        $user_name = $user->first_name." ".$user->last_name;
 
-        return view('admin.create', compact($this->compact, 'catalog_role_id'));
+        return view('admin.create', compact($this->compact, 'user_name'));
     }
 
     /**
@@ -120,30 +124,30 @@ class MicrochipsController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(MasterRequest $request)
+    public function store(Request $request)
     {
-        /* Create Item */
-        if($this->request_whit == 1){
-            $item = MasterModel::create($request->all());
-        }else if($this->request_whit == 2){
-            $item = MasterModel::create($request->only($this->only));
-        }else{
-            $item = MasterModel::create($request->except($this->exeptions));
-        }
+        $user = Sentinel::getUser();   	
+        $message = "Microchip registrado con éxito, se envió la solicitud al administrador para su activación";
+      	
+      	$microchip = MasterModel::where('microchip', $request->microchip);
 
-        $user = Sentinel::findById($item->id);
-        $activation = Activation::create($user);
-        Activation::complete($user, $activation->code);
+      	if($microchip->count()){
+      		return Redirect::back()->with('error', "El microchip que intentas registrar ya existe, favor de corroborarlo");
+      	}
+      	else{
+      		$active = 0;
+      		if(!is_null($request->active))
+      			$active = $request->active;
 
-        /* Extras */
-        $role = Sentinel::findRoleById($request->role_id);
-        $role->users()->attach($item);
-
-        /* Slug */
-        // $item->slug = Str::slug($item->first_name.' '.$item->last_name.' '.$item->id);
+      		$item = MasterModel::create([
+      			'microchip' => $request->microchip,
+      			'user_id' => $user->id,
+      			'active' => $active
+      		]);	
+      	}
 
         if($item->save()){
-            return Redirect::route($this->active)->with('success', trans('module_'.$this->active.'.crud.create.success'));
+            return Redirect::route($this->active)->with('success', $message);
         }else{
             return Redirect::back()->with('error', trans('module_'.$this->active.'.crud.create.error'));
         }
@@ -197,10 +201,10 @@ class MicrochipsController extends Controller
         $columns = $this->columns();
         $select = $this->select;
 
-        // Catalogs
-        $catalog_role_id = $this->catalog_role_id;
+        $user = Sentinel::getUser();
+        $user_name = $user->first_name." ".$user->last_name;
 
-        return view('admin.edit', compact($this->compact, 'item', 'catalog_role_id'));
+        return view('admin.edit', compact($this->compact, 'item', 'user_name'));
     }
 
     /**
@@ -210,29 +214,15 @@ class MicrochipsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(MasterRequest $request, $id)
+    public function update(Request $request, $id)
     {
+    	$user = Sentinel::getUser(); 
         $item = MasterModel::find($id);
-
-        /* Extras */
-        $role = Sentinel::findRoleById($item->role_id);
-        $role->users()->detach($item);
-
-        if($this->request_whit == 1){
-            $item->fill($request->all());
-        }else if($this->request_whit == 2){
-            $item->fill($request->only($this->only));
-        }else{
-            $item->fill($request->except($this->exeptions));
-        }
-
-        /* Extras */
-        $role = Sentinel::findRoleById($request->role_id);
-        $role->users()->attach($item);
-
-        /* Slug */
-        // $item->slug = Str::slug($item->first_name.' '.$item->last_name.' '.$item->id);
-
+        $item->fill([
+        	'microchip' => $request->microchip,
+        	'user_id' => $user->id,
+        	'active' => $request->active
+        ]);
         if($item->save()){
             return Redirect::route($this->active)->with('success', trans('module_'.$this->active.'.crud.update.success'));
         }else{

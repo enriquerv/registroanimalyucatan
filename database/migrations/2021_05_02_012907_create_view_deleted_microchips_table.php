@@ -18,7 +18,8 @@ class CreateViewDeletedMicrochipsTable extends Migration
             (
                 SELECT
                     microchips.id,
-                    CONCAT(users.first_name,' ',users.last_name) as user_id,
+                    CONCAT(users.first_name,' ',users.last_name) as user_name,
+                    users.id as user_id,
                     microchips.microchip,
                     IF(microchips.active = 1, 'SI', 'NO') as active,
                     microchips.created_at

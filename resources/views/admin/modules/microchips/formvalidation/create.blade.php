@@ -3,59 +3,17 @@
         $('#formValidation').formValidation({
             locale: '{{ \App::getLocale() == 'es' ? 'es_ES' : 'en_US' }}',
             fields: {
-                first_name: {
+                microchip: {
                     validators: {
                         notEmpty: {},
                         stringLength: {
-                            min: 3,
-                            max: 255
-                        }
-                    }
-                },
-                last_name: {
-                    validators: {
-                        notEmpty: {},
-                        stringLength: {
-                            min: 3,
-                            max: 255
-                        }
-                    }
-                },
-                email: {
-                    validators: {
-                        notEmpty: {},
-                        emailAddress: {}
-                    }
-                },
-                password: {
-                    validators: {
-                        notEmpty: {},
-                        stringLength: {
-                            min: 6,
-                            max: 16
+                            min: 15,
+                            max: 15,
+                            message: "Por favor introduce un valor con una longitud de 15 números",
                         },
-                        identical_password: {
-                            field: 'password_confirm'
-                        }
+
                     }
                 },
-                password_confirm: {
-                    validators: {
-                        notEmpty: {},
-                        stringLength: {
-                            min: 6,
-                            max: 16
-                        },
-                        identical_password: {
-                            field: 'password'
-                        }
-                    }
-                },
-                role_id: {
-                    validators: {
-                        notEmpty: {}
-                    }
-                }
             }
         });
     });

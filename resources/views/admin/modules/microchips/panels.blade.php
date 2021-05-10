@@ -1,56 +1,42 @@
 <div class="tab-pane fade show active" id="tab1">
     <h2 class="hidden">&nbsp;</h2>
-    <div class="form-group form-row {{ $errors->first('first_name') ? 'has-error' : '' }}">
-        {!! Form::label('first_name', trans('validation.attributes.first_name').' *', ['class' => 'col-sm-2 control-label']) !!}
-        <div class="col-sm-10">
-            {!! Form::text('first_name', old('first_name'), ['id' => 'first_name', 'class' => 'form-control', 'placeholder' => trans('validation.attributes.first_name')]) !!}
-            <span class="help-block">{{ $errors->first('first_name', ':message') }}</span>
-        </div>
-    </div>
 
-    <div class="form-group form-row {{ $errors->first('last_name') ? 'has-error' : '' }}">
-        {!! Form::label('last_name', trans('validation.attributes.last_name').' *', ['class' => 'col-sm-2 control-label']) !!}
-        <div class="col-sm-10">
-            {!! Form::text('last_name', old('last_name'), ['id' => 'last_name', 'class' => 'form-control', 'placeholder' => trans('validation.attributes.last_name')]) !!}
-            <span class="help-block">{{ $errors->first('last_name', ':message') }}</span>
+    <div class="row mb-5">
+        <div class="col-md-6">
+            <div class="form-group {{ $errors->first('user_id') ? 'has-error' : '' }}">
+                <label for="user_id" class="control-label">Usuario</label>  
+                <input type="text" value="{{ $user_name }}" class="form-control" readonly disabled>
+                <span class="help-block">{{ $errors->first('user_id', ':message') }}</span>
+            </div>
         </div>
-    </div>
-
-    <div class="form-group form-row {{ $errors->first('email') ? 'has-error' : '' }}">
-        {!! Form::label('email', trans('validation.attributes.email').' *', ['class' => 'col-sm-2 control-label']) !!}
-        <div class="col-sm-10">
-            {!! Form::text('email', old('email'), ['id' => 'email', 'class' => 'form-control', 'placeholder' => trans('validation.attributes.email')]) !!}
-            <span class="help-block">{{ $errors->first('email', ':message') }}</span>
+        <div class="col-md-6">
+            <div class="form-group {{ $errors->first('microchip') ? 'has-error' : '' }}">
+                <label for="microchip" class="control-label">Microchip</label>  
+                <input type="number" name="microchip" class="form-control" step="1" value="{{ isset($item) ? $item->microchip : '' }}" required>
+                <span class="help-block">{{ $errors->first('microchip', ':message') }}</span>
+            </div>
         </div>
-    </div>
-
-    <div class="form-group form-row {{ $errors->first('password') ? 'has-error' : '' }}">
-        {!! Form::label('password', trans('validation.attributes.password').' *', ['class' => 'col-sm-2 control-label']) !!}
-        <div class="col-sm-10">
-            {!! Form::password('password', ['id' => 'password', 'class' => 'form-control', 'placeholder' => trans('validation.attributes.password')]) !!}
-            @isset($item)
-                <p class="help-block">{{ trans('strings.help.password') }}</p>
-            @endisset
-            <span class="help-block">{{ $errors->first('password', ':message') }}</span>
-        </div>
-    </div>
-
-    <div class="form-group form-row {{ $errors->first('password_confirm') ? 'has-error' : '' }}">
-        {!! Form::label('password_confirm', trans('validation.attributes.password_confirm').' *', ['class' => 'col-sm-2 control-label']) !!}
-        <div class="col-sm-10">
-            {!! Form::password('password_confirm', ['id' => 'password_confirm', 'class' => 'form-control', 'placeholder' => trans('validation.attributes.password_confirm')]) !!}
-            @isset($item)
-                <p class="help-block">{{ trans('strings.help.password') }}</p>
-            @endisset
-            <span class="help-block">{{ $errors->first('password_confirm', ':message') }}</span>
-        </div>
-    </div>
-
-    <div class="form-group form-row {{ $errors->first('role_id') ? 'has-error' : '' }}">
-        {!! Form::label('role_id', trans('validation.attributes.role_id').' *', ['class' => 'col-sm-2 control-label']) !!}
-        <div class="col-sm-10">
-            {!! Form::select('role_id', $catalog_role_id, null, ['id' => 'role_id', 'class' => 'form-control', 'placeholder' => trans('validation.attributes.role_id')]) !!}
-            <span class="help-block">{{ $errors->first('role_id', ':message') }}</span>
-        </div>
+        @if ($user = Sentinel::getUser()->role_id == 1)
+            <div class="col-md-6">
+                <div class="form-group {{ $errors->first('active') ? 'has-error' : '' }}">
+                    <label for="active" class="control-label">Activo</label>  
+                    @php
+                        $selected_1 = '';
+                        $selected_0 = 'selected';
+                        if(isset($item)){
+                            if ($item->active == 1) {
+                                $selected_1 = 'selected';
+                                $selected_0 = '';
+                            }
+                        }
+                    @endphp
+                    <select name="active" class="form-control">
+                        <option value="1" {{ $selected_1 }}>Si</option>
+                        <option value="0" {{ $selected_0 }}>No</option>
+                    </select>
+                    <span class="help-block">{{ $errors->first('active', ':message') }}</span>
+                </div>
+            </div>
+        @endif
     </div>
 </div>

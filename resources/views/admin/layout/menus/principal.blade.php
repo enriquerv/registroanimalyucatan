@@ -35,12 +35,15 @@
                   <nav class="sb-sidenav-menu-nested nav">
                     <a class="nav-link" href="{!! URL::route($route_module) !!}">{{ trans('strings.crud.list_of') }} {{ $route_title_plural }}</a>
                     <a class="nav-link" href="{!! URL::route($route_module.'.create') !!}">{{ trans('strings.crud.add') }} {{ $route_title }}</a>
-                    <a class="nav-link" href="{!! URL::route($route_module.'.deleted') !!}">{{ trans('strings.crud.restore') }} {{ $route_title }}</a>
+                    @if (Sentinel::getUser()->role_id == 1)
+                      <a class="nav-link" href="{!! URL::route($route_module.'.deleted') !!}">{{ trans('strings.crud.restore') }} {{ $route_title }}</a>
+                    @endif
+                    
                   </nav>
                 </div>
             @endif
 
-            @if(Sentinel::getUser()->role_id <= 2)
+            @if(Sentinel::getUser()->role_id == 1)
                 {{-- Users --}}
                 @php
                     $route_module = 'users';
