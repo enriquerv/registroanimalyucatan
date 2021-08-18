@@ -24,6 +24,22 @@
         </div>
     </div>
 
+    <div class="form-group form-row {{ $errors->first('state_id') ? 'has-error' : '' }}">
+        {!! Form::label('state_id', trans('validation.attributes.state_id').' *', ['class' => 'col-sm-2 control-label']) !!}
+        <div class="col-sm-10">
+            {!! Form::select('state_id', $states, null, ['id' => 'state_id', 'class' => 'form-control', 'placeholder' => trans('validation.attributes.state_id')]) !!}
+            <span class="help-block">{{ $errors->first('state_id', ':message') }}</span>
+        </div>
+    </div>
+
+    <div class="form-group form-row {{ $errors->first('city_id') ? 'has-error' : '' }}">
+        {!! Form::label('city_id', trans('validation.attributes.city_id').' *', ['class' => 'col-sm-2 control-label']) !!}
+        <div class="col-sm-10">
+            {!! Form::select('city_id', $cities, null, ['id' => 'city_id', 'class' => 'form-control', 'placeholder' => trans('validation.attributes.city_id')]) !!}
+            <span class="help-block">{{ $errors->first('city_id', ':message') }}</span>
+        </div>
+    </div>
+
     <div class="form-group form-row {{ $errors->first('password') ? 'has-error' : '' }}">
         {!! Form::label('password', trans('validation.attributes.password').' *', ['class' => 'col-sm-2 control-label']) !!}
         <div class="col-sm-10">

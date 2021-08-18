@@ -27,7 +27,13 @@ class UsersTableSeeder extends Seeder
 		$customerRole = Sentinel::getRoleRepository()->createModel()->create([
 			'slug' => 'veterinary',
 			'name' => 'Veterinario',
-			'permissions' => array('custo' => 2),
+			'permissions' => array('veterinary' => 2),
+		]);
+
+		$customerRole = Sentinel::getRoleRepository()->createModel()->create([
+			'slug' => 'client',
+			'name' => 'Cliente',
+			'permissions' => array('client' => 3),
 		]);
 
 		$admins = [

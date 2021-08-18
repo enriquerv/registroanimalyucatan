@@ -33,7 +33,18 @@ class User extends Authenticatable
         'postal_code',
         'rfc',
         'role_id',
-        'last_login'
+        'last_login',
+        'second_last_name',
+        'curp',
+        'social_media',
+        'cellphone',
+        'certificate_folio',
+        'second_owner_first_name',
+        'second_owner_last_name',
+        'second_owner_phone',
+        'second_owner_cellphone',
+        'second_owner_email',
+        'second_owner_social_media',
     ];
 
     /**

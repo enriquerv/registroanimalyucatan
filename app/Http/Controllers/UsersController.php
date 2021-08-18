@@ -7,6 +7,8 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Str as Str;
 use App\Http\Requests\UsersRequest as MasterRequest;
 use App\User as MasterModel;
+use App\City;
+use App\State;
 use App\ViewUser as MasterViewModel;
 use Sentinel;
 use Activation;
@@ -40,7 +42,7 @@ class UsersController extends Controller
         $this->compact = ['word', 'active', 'model', 'view', 'columns', 'select', 'actions', 'word1'];
 
         //Catalogs
-        $this->catalog_role_id = DB::table('roles')->where('id', '<=', 3)->pluck('name', 'id');
+        $this->catalog_role_id = DB::table('roles')->where('id', '<=', 2)->pluck('name', 'id');
     }
 
     public function columns()
@@ -111,11 +113,13 @@ class UsersController extends Controller
         $word = trans('module_'.$this->active.'.module_title');
         $columns = $this->columns();
         $select = $this->select;
+        $states = State::pluck('name', 'id');
+        $cities = City::orderByRaw('FIELD(name, "merida") DESC')->pluck('name', 'id');
 
         // Catalogs
         $catalog_role_id = $this->catalog_role_id;
 
-        return view('admin.create', compact($this->compact, 'catalog_role_id'));
+        return view('admin.create', compact($this->compact, 'catalog_role_id', 'states', 'cities'));
     }
 
     /**
@@ -203,8 +207,10 @@ class UsersController extends Controller
 
         // Catalogs
         $catalog_role_id = $this->catalog_role_id;
+        $states = State::pluck('name', 'id');
+        $cities = City::orderByRaw('FIELD(name, "merida") DESC')->pluck('name', 'id');
 
-        return view('admin.edit', compact($this->compact, 'item', 'catalog_role_id'));
+        return view('admin.edit', compact($this->compact, 'item', 'catalog_role_id', 'states', 'cities'));
     }
 
     /**

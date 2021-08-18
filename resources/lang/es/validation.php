@@ -181,6 +181,7 @@ return [
         //microchips
         'microchip'                             => 'Microchip',
         'active'                                => 'Activo',
+        'owner_id'                              => 'Dueño',
         // States
         'country_id'                            => 'País',
         // Cities
@@ -192,7 +193,7 @@ return [
         'monthly_cost'                          => 'Costo Mensual',
         'annual_cost'                           => 'Costo Anual',
         // Users
-        'role_id'                               => 'Permisos',
+        'role_id'                               => 'Tipo de usuario',
         // Suppliers
         'gender_id'                             => 'Género',
         'birthdate'                             => 'Fecha de Nacimiento',

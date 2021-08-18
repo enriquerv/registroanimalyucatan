@@ -99,7 +99,7 @@ class MigrationCartalystSentinel extends Migration
             $table->string('last_name');
             $table->string('email');
             $table->string('password');
-            $table->string('birthdate')->nullable();
+            $table->date('birthdate')->nullable();
             $table->string('phone')->nullable();
             $table->integer('country_id')->nullable();
             $table->integer('state_id')->nullable();

@@ -19,20 +19,6 @@ class Controller extends BaseController
             return response()->json($catalog_subcategories);
         }
     }
-    public function getStates(Request $request, $id)
-    {
-        if($request->ajax()){
-        	$catalog_states = Country::find($id)->states;
-            return response()->json($catalog_states);
-        }
-    }
-    public function getCities(Request $request, $id)
-    {
-        if($request->ajax()){
-        	$catalog_cities = State::find($id)->cities;
-            return response()->json($catalog_cities);
-        }
-    }
 
     // Dynamic Checkbox
     public function getSubcategoriesCheck(Request $request)

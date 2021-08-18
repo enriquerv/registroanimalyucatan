@@ -24,14 +24,13 @@
 		<div class="col-sm-12">
 			{!! Form::open(['route' => $active.'.store', 'method' => 'post', 'id' => 'formValidation', 'class' => 'form-horizontal', 'files' => true]) !!}
 				<div id="rootwizard">
-					<ul>
+					<ul class="nav nav-tabs">
 				        @include('admin.modules.'.$active.'.tabs')
 				    </ul>
-				    <br>
 				    <div class="tab-content">
 				        @include('admin.modules.'.$active.'.panels')
 
-								<nav>
+						<nav>
 					        <ul class="pagination pager wizard">
 					            <li class="page-item previous">
 					                {!! link_to('#', trans('strings.wizard.previous'), ["class"=>"page-link"]) !!}
@@ -43,7 +42,7 @@
 					                {!! link_to('#', trans('strings.wizard.finish'), ["class"=>"page-link"]) !!}
 					            </li>
 					        </ul>
-								</nav>
+						</nav>
 				    </div>
 				</div>
 			{!! Form::close() !!}

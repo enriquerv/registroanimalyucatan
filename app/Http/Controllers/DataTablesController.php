@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 
 use Sentinel;
-
+use App\User;
 use Carbon\Carbon;
 use Yajra\DataTables\Facades\DataTables;
 
@@ -37,7 +37,15 @@ class DataTablesController extends Controller
             $rows = $full_model::data();
         }
 
-        return DataTables::of($rows)
+        if($request->model == 'Pet'){
+            $rows = $user->role_id <= 1 ? $full_model::data() : $full_model::where('user_id', $user->id)->get();
+            foreach ($rows as $pet) {
+                $owner = User::withTrashed()->find($pet->owner_id);
+                $pet->owner_id = $owner->first_name." ".$owner->last_name;
+            }
+        }
+
+        $dataResult = DataTables::of($rows)
             ->editColumn('created_at', '{!! \Carbon\Carbon::parse($created_at)->diffForHumans() !!}')
             ->addColumn('actions', function($row) use ($active, $view, $actions_value){
                 if($view == 'index'){
@@ -63,8 +71,9 @@ class DataTablesController extends Controller
                 }
 
                 return $actions;
-            })
-            ->rawColumns(['actions'])
-            ->make(true);
+            });
+
+
+            return $dataResult->rawColumns(['actions'])->make(true);
     }
 }

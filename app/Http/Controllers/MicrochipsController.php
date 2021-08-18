@@ -113,7 +113,7 @@ class MicrochipsController extends Controller
         $columns = $this->columns();
         $select = $this->select;
 
-        $users = User::all();
+        $users = User::where('role_id', '<=', 2)->get();
 
         return view('admin.create', compact($this->compact, 'users'));
     }

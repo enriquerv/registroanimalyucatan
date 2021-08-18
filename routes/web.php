@@ -187,6 +187,21 @@ Route::group(array('middleware' => 'langMiddleware'), function () {
         Route::get('{id}', array('as' => $route.'.show', 'uses' => $controller.'@show'));
     });
 
+    // Pets
+    $route = 'pets';
+    $controller = 'PetsController';
+    Route::group(array('prefix' => $route), function () use ($route, $controller) {
+        Route::get('deleted', array('as' => $route.'.deleted', 'uses' => $controller.'@getRestore'));
+        Route::patch('restore', array('as' => $route.'.restore', 'uses' => $controller.'@postRestore'));
+        Route::get('/', array('as' => $route, 'uses' => $controller.'@index'));
+        Route::delete('delete', array('as' => $route.'.delete', 'uses' => $controller.'@destroy'));
+        Route::get('create', array('as' => $route.'.create', 'uses' => $controller.'@create'));
+        Route::post('create', array('as' => $route.'.store', 'uses' => $controller.'@store'));
+        Route::get('{id}/edit', array('as' => $route.'.edit', 'uses' => $controller.'@edit'));
+        Route::put('{id}/edit', array('as' => $route.'.update', 'uses' => $controller.'@update'));
+        Route::get('{id}', array('as' => $route.'.show', 'uses' => $controller.'@show'));
+    });
+
   });
 
 
@@ -194,8 +209,8 @@ Route::group(array('middleware' => 'langMiddleware'), function () {
    * Dynamic Selects
    */
   Route::get('dynamic-selects/subcategories/{id}', 'Controller@getSubcategories');
-  Route::get('dynamic-selects/states/{id}', 'Controller@getStates');
-  Route::get('dynamic-selects/cities/{id}', 'Controller@getCities');
+  Route::get('get-breeds/{species_id}', 'PetsController@getBreeds');
+  Route::get('getCities/{id}', 'PetsController@getCities');
 
   /*
    * Dynamic Checkbox

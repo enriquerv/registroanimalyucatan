@@ -39,6 +39,7 @@ class CreateViewPetsTable extends Migration
                     pets.surgeries,
                     CONCAT(users.first_name,' ',users.last_name) as user_name,
                     users.id as user_id,
+                    pets.owner_id,
                     pets.created_at
 
                 FROM `pets`
